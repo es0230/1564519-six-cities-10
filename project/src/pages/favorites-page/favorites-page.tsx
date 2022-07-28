@@ -149,4 +149,4 @@ function FavoritePage({ favoriteCount }: FavoritePageProps): JSX.Element {
   );
 }
 
-export { FavoritePage };
+export default FavoritePage;

@@ -317,4 +317,4 @@ function RoomPage({ favoriteCount }: RoomPageProps): JSX.Element {
   );
 }
 
-export { RoomPage };
+export default RoomPage;

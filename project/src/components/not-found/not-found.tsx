@@ -1,10 +1,10 @@
-function Page404(): JSX.Element {
+function NotFound(): JSX.Element {
   return (
     <div>
-      <h1>Ошибка 404</h1>
-      <p>Страницы не существует</p>
+      <h1>Error 404</h1>
+      <p>Page not found</p>
     </div>
   );
 }
 
-export default Page404;
+export default NotFound;
