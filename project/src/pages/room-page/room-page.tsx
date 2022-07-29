@@ -1,4 +1,4 @@
-import Header from '../../components/header/header';
+import Header from '../../components/profile/profile';
 
 type RoomPageProps = {
   favoriteCount: number

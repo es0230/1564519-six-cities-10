@@ -3,6 +3,8 @@ import LoginPage from '../../pages/login-page/login-page';
 import FavoritePage from '../../pages/favorites-page/favorites-page';
 import RoomPage from '../../pages/room-page/room-page';
 import Page404 from '../../pages/page-404/page-404';
+import PrivateRoute from '../private-route/private-route';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import {
   BrowserRouter,
   Routes,
@@ -22,10 +24,15 @@ function App({ favoriteCount, placeCount }: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={mainPage} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/favorites" element={favoritePage} />
-        <Route path="/offer/:id" element={roomPage} />
+        <Route path={AppRoute.Main} element={mainPage} />
+        <Route path={AppRoute.Login} element={<LoginPage />} />
+        <Route path={AppRoute.Favorites} element={
+          <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+            {favoritePage}
+          </PrivateRoute>
+        }
+        />
+        <Route path={AppRoute.Offer} element={roomPage} />
         <Route path="*" element={<Page404 />} />
       </Routes>
     </BrowserRouter>
