@@ -5,6 +5,7 @@ import RoomPage from '../../pages/room-page/room-page';
 import Page404 from '../../pages/page-404/page-404';
 import PrivateRoute from '../private-route/private-route';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { Offer } from '../../types/offer';
 import {
   BrowserRouter,
   Routes,
@@ -14,10 +15,11 @@ import {
 type AppScreenProps = {
   favoriteCount: number;
   placeCount: number;
+  offers: Offer[];
 }
 
-function App({ favoriteCount, placeCount }: AppScreenProps): JSX.Element {
-  const mainPage = (<MainPage favoriteCount={favoriteCount} placeCount={placeCount} />);
+function App({ favoriteCount, placeCount, offers }: AppScreenProps): JSX.Element {
+  const mainPage = (<MainPage favoriteCount={favoriteCount} placeCount={placeCount} offers={offers} />);
   const favoritePage = (<FavoritePage favoriteCount={favoriteCount} />);
   const roomPage = (<RoomPage favoriteCount={favoriteCount} />);
 

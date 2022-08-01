@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 
+import { offers } from './mocks/offers';
+
 const Setting = {
   FAVORITE_COUNT: 3,
   PLACE_COUNT: 259, //312 было изначально
@@ -16,6 +18,7 @@ root.render(
     <App
       favoriteCount={Setting.FAVORITE_COUNT}
       placeCount={Setting.PLACE_COUNT}
+      offers={offers}
     />
   </React.StrictMode>,
 );

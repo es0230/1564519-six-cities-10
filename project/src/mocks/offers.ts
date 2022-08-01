@@ -6,6 +6,7 @@ const placeImages: string[] = [
   'https://n1s1.elle.ru/bd/95/aa/bd95aa2aa31f1b758f289e0865ca2f0e/728x485_1_c7b2ca58505c763cd041b424cdb73d2d@1880x1253_0xac120003_19658614751575881272.jpg',
   'https://media.admagazine.ru/photos/6140812b23f818f11295bf00/16:9/w_2560%2Cc_limit/MMI_6732%2520copy.jpg',
   'https://s0.rbk.ru/v6_top_pics/media/img/5/60/756281458904605.jpg',
+  'https://cdn.esoft.digital/320240/cluster/photos/6a/4a/f609434b321a6bfeaae2f43650b286fc4f304a6a.jpeg',
 ];
 
 const owner: Owner = {
