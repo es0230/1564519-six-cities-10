@@ -1,0 +1,78 @@
+import { Offer } from '../types/offer';
+import { Owner } from '../types/owner';
+import { reviews } from './reviews';
+
+const placeImages: string[] = [
+  'https://n1s1.elle.ru/bd/95/aa/bd95aa2aa31f1b758f289e0865ca2f0e/728x485_1_c7b2ca58505c763cd041b424cdb73d2d@1880x1253_0xac120003_19658614751575881272.jpg',
+  'https://media.admagazine.ru/photos/6140812b23f818f11295bf00/16:9/w_2560%2Cc_limit/MMI_6732%2520copy.jpg',
+  'https://s0.rbk.ru/v6_top_pics/media/img/5/60/756281458904605.jpg',
+];
+
+const owner: Owner = {
+  avatar: 'https://klike.net/uploads/posts/2019-03/1551511801_1.jpg',
+  name: 'Meow Meow',
+  isPro: true,
+};
+
+export const offers: Offer[] = [
+  {
+    id: 1,
+    rating: 4.1,
+    price: 45,
+    bedroomCount: 2,
+    guestLimit: 4,
+    title: 'Apartment',
+    description: 'Nice apartment, awesome walls',
+    placeType: 'apartment',
+    images: placeImages,
+    isFavorite: true,
+    isPremium: false,
+    ownerInfo: owner,
+    placeReviews: [reviews[0], reviews[1]]
+  },
+  {
+    id: 2,
+    rating: 3.2,
+    price: 100,
+    bedroomCount: 4,
+    guestLimit: 8,
+    title: 'House',
+    description: 'Nice house, awesome walls',
+    placeType: 'house',
+    images: placeImages,
+    isFavorite: false,
+    isPremium: true,
+    ownerInfo: owner,
+    placeReviews: []
+  },
+  {
+    id: 3,
+    rating: 3.5,
+    price: 20,
+    bedroomCount: 1,
+    guestLimit: 2,
+    title: 'Room',
+    description: 'Nice room, awesome walls',
+    placeType: 'room',
+    images: placeImages,
+    isFavorite: false,
+    isPremium: false,
+    ownerInfo: owner,
+    placeReviews: [reviews[2]]
+  },
+  {
+    id: 4,
+    rating: 4.7,
+    price: 70,
+    bedroomCount: 1,
+    guestLimit: 2,
+    title: 'Hotel',
+    description: 'Nice hotel, awesome walls',
+    placeType: 'hotel',
+    images: placeImages,
+    isFavorite: true,
+    isPremium: true,
+    ownerInfo: owner,
+    placeReviews: [reviews[3]]
+  }
+];
