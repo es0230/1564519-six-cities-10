@@ -11,6 +11,7 @@ export type Offer = {
   description: string;
   placeType: string;
   images: string[];
+  features: string[];
   isFavorite: boolean;
   isPremium: boolean;
   ownerInfo: Owner;

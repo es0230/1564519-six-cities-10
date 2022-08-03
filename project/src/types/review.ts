@@ -4,4 +4,5 @@ export type Review = {
   date: string;
   reviewText: string;
   rating: number;
+  id: string;
 }

@@ -24,12 +24,13 @@ export const offers: Offer[] = [
     guestLimit: 4,
     title: 'Apartment',
     description: 'Nice apartment, awesome walls',
-    placeType: 'apartment',
+    placeType: 'Apartment',
     images: placeImages,
     isFavorite: true,
     isPremium: false,
     ownerInfo: owner,
-    placeReviews: [reviews[0], reviews[1]]
+    placeReviews: [reviews[0], reviews[1]],
+    features: ['Wi-Fi', 'Heating', 'Kitchen', 'Fridge', 'Towels', 'Cabel TV']
   },
   {
     id: 2,
@@ -39,12 +40,13 @@ export const offers: Offer[] = [
     guestLimit: 8,
     title: 'House',
     description: 'Nice house, awesome walls',
-    placeType: 'house',
+    placeType: 'House',
     images: placeImages,
     isFavorite: false,
     isPremium: true,
     ownerInfo: owner,
-    placeReviews: []
+    placeReviews: [],
+    features: ['Wi-Fi', 'Heating', 'Kitchen', 'Fridge', 'Washing Machine', 'Coffee Machine', 'Dishwasher', 'Towels', 'Baby seat', 'Cabel TV']
   },
   {
     id: 3,
@@ -54,12 +56,13 @@ export const offers: Offer[] = [
     guestLimit: 2,
     title: 'Room',
     description: 'Nice room, awesome walls',
-    placeType: 'room',
+    placeType: 'Room',
     images: placeImages,
     isFavorite: false,
     isPremium: false,
     ownerInfo: owner,
-    placeReviews: [reviews[2]]
+    placeReviews: [reviews[2]],
+    features: ['Wi-Fi', 'Heating', 'Fridge', 'Towels', 'Cabel TV']
   },
   {
     id: 4,
@@ -69,11 +72,12 @@ export const offers: Offer[] = [
     guestLimit: 2,
     title: 'Hotel',
     description: 'Nice hotel, awesome walls',
-    placeType: 'hotel',
+    placeType: 'Hotel',
     images: placeImages,
     isFavorite: true,
     isPremium: true,
     ownerInfo: owner,
-    placeReviews: [reviews[3]]
+    placeReviews: [reviews[3]],
+    features: ['Wi-Fi', 'Heating', 'Towels', 'Cabel TV']
   }
 ];

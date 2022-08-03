@@ -4,12 +4,13 @@ import MainPageTabs from '../../components/main-page-tabs/main-page-tabs';
 import { Offer } from '../../types/offer';
 
 type MainPageProps = {
-  favoriteCount: number;
-  placeCount: number;
   offers: Offer[];
 };
 
-function MainPage({ favoriteCount, placeCount, offers }: MainPageProps): JSX.Element {
+function MainPage({ offers }: MainPageProps): JSX.Element {
+  const favoriteCount = offers.filter((offer) => offer.isFavorite).length;
+  const placeCount = offers.length;
+
   return (
     <div className="page page--gray page--main">
       <Header

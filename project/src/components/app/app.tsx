@@ -13,15 +13,13 @@ import {
 } from 'react-router-dom';
 
 type AppScreenProps = {
-  favoriteCount: number;
-  placeCount: number;
   offers: Offer[];
 }
 
-function App({ favoriteCount, placeCount, offers }: AppScreenProps): JSX.Element {
-  const mainPage = (<MainPage favoriteCount={favoriteCount} placeCount={placeCount} offers={offers} />);
-  const favoritePage = (<FavoritePage favoriteCount={favoriteCount} />);
-  const roomPage = (<RoomPage favoriteCount={favoriteCount} />);
+function App({ offers }: AppScreenProps): JSX.Element {
+  const mainPage = (<MainPage offers={offers} />);
+  const favoritePage = (<FavoritePage offers={offers} />);
+  const roomPage = (<RoomPage offers={offers} />);
 
   return (
     <BrowserRouter>
@@ -29,7 +27,7 @@ function App({ favoriteCount, placeCount, offers }: AppScreenProps): JSX.Element
         <Route path={AppRoute.Main} element={mainPage} />
         <Route path={AppRoute.Login} element={<LoginPage />} />
         <Route path={AppRoute.Favorites} element={
-          <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+          <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
             {favoritePage}
           </PrivateRoute>
         }
