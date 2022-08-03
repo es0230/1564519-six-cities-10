@@ -5,6 +5,7 @@ import RoomPage from '../../pages/room-page/room-page';
 import Page404 from '../../pages/page-404/page-404';
 import PrivateRoute from '../private-route/private-route';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { Offer } from '../../types/offer';
 import {
   BrowserRouter,
   Routes,
@@ -12,14 +13,13 @@ import {
 } from 'react-router-dom';
 
 type AppScreenProps = {
-  favoriteCount: number;
-  placeCount: number;
+  offers: Offer[];
 }
 
-function App({ favoriteCount, placeCount }: AppScreenProps): JSX.Element {
-  const mainPage = (<MainPage favoriteCount={favoriteCount} placeCount={placeCount} />);
-  const favoritePage = (<FavoritePage favoriteCount={favoriteCount} />);
-  const roomPage = (<RoomPage favoriteCount={favoriteCount} />);
+function App({ offers }: AppScreenProps): JSX.Element {
+  const mainPage = (<MainPage offers={offers} />);
+  const favoritePage = (<FavoritePage offers={offers} />);
+  const roomPage = (<RoomPage offers={offers} />);
 
   return (
     <BrowserRouter>
@@ -27,7 +27,7 @@ function App({ favoriteCount, placeCount }: AppScreenProps): JSX.Element {
         <Route path={AppRoute.Main} element={mainPage} />
         <Route path={AppRoute.Login} element={<LoginPage />} />
         <Route path={AppRoute.Favorites} element={
-          <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+          <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
             {favoritePage}
           </PrivateRoute>
         }

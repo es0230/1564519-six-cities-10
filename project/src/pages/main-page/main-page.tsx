@@ -1,16 +1,16 @@
-import PlaceCard from '../../components/place-card/place-card';
+import OfferList from '../../components/offer-list/offer-list';
 import Header from '../../components/header/header';
 import MainPageTabs from '../../components/main-page-tabs/main-page-tabs';
-import { getRandInt } from '../../utils/util';
-
-const PlacePricesBounds = [50, 100];
+import { Offer } from '../../types/offer';
 
 type MainPageProps = {
-  favoriteCount: number;
-  placeCount: number;
+  offers: Offer[];
 };
 
-function MainPage({ favoriteCount, placeCount }: MainPageProps): JSX.Element {
+function MainPage({ offers }: MainPageProps): JSX.Element {
+  const favoriteCount = offers.filter((offer) => offer.isFavorite).length;
+  const placeCount = offers.length;
+
   return (
     <div className="page page--gray page--main">
       <Header
@@ -40,23 +40,7 @@ function MainPage({ favoriteCount, placeCount }: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                <PlaceCard
-                  price={getRandInt(...PlacePricesBounds)}
-                />
-                <PlaceCard
-                  price={getRandInt(...PlacePricesBounds)}
-                />
-                <PlaceCard
-                  price={getRandInt(...PlacePricesBounds)}
-                />
-                <PlaceCard
-                  price={getRandInt(...PlacePricesBounds)}
-                />
-                <PlaceCard
-                  price={getRandInt(...PlacePricesBounds)}
-                />
-              </div>
+              <OfferList offers={offers} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
