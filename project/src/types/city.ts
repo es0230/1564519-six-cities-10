@@ -1,4 +1,4 @@
 export type City = {
-  center: number[];
+  center: [number, number];
   zoom: number;
 };

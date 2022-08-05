@@ -1,11 +1,11 @@
 import { Offer } from '../../types/offer';
 //import { Point } from '../../types/point';
-//import useMap from '../../hooks/useMap';
-import L from 'leaflet'; //{ Icon, Marker }
-//import { URL_MARKER_DEFAULT } from '../../const';
+import { Icon } from 'leaflet';
+import { URL_MARKER_DEFAULT } from '../../const';
 import 'leaflet/dist/leaflet.css';
-import { useRef, } from 'react'; //useEffect
+import { useRef } from 'react';
 import { City } from '../../types/city';
+import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 
 type MapProps = {
   offers: Offer[];
@@ -13,45 +13,31 @@ type MapProps = {
 };
 
 const CITY: City = {
-  center: [52.390955, 4.853096],
-  zoom: 10
+  center: [52.370955, 4.893096],
+  zoom: 12
 };
 
-//const defaultCustomIcon = new Icon({
-//  iconUrl: URL_MARKER_DEFAULT,
-//  iconSize: [40, 40],
-//  iconAnchor: [20, 40]
-//});
+const MAP_WIDTH = '450px';
+
+const defaultCustomIcon = new Icon({
+  iconUrl: URL_MARKER_DEFAULT,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40]
+});
 
 function Map({ offers, city }: MapProps): JSX.Element {
   const mapRef = useRef(null);
-  //const map = useMap(mapRef, city);
   //const points: Point[] = offers.map((offer) => offer.location);
 
-  const map = L.map('map', {
-    center: [52.390955, 4.853096],
-    zoom: CITY.zoom,
-  });
-
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '© OpenStreetMap'
-  }).addTo(map);
-
-  //useEffect(() => {
-  //  if (map) {
-  //    points.forEach((point) => {
-  //      const marker = new Marker({
-  //        lat: point.lat,
-  //        lng: point.lng
-  //      });
-
-  //      marker.setIcon(defaultCustomIcon).addTo(map);
-  //    });
-  //  }
-  //}, [map, points]);
-
-  return <div style={{ height: '500px' }} ref={mapRef}></div>;
+  return (
+    <MapContainer style={{ width: MAP_WIDTH }} center={CITY.center} zoom={CITY.zoom} scrollWheelZoom={false} ref={mapRef}>
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      {offers.map((offer) => <Marker key={offer.id} position={[offer.location.lat, offer.location.lng]} icon={defaultCustomIcon} />)}
+    </MapContainer>
+  );
 }
 
 export default Map;
