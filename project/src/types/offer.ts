@@ -15,6 +15,7 @@ export type Offer = {
   isFavorite: boolean;
   isPremium: boolean;
   ownerInfo: Owner;
+  location: string[];
   placeReviews: Review[];
 }
 
