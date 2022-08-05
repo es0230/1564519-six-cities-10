@@ -1,7 +1,9 @@
 import OfferList from '../../components/offer-list/offer-list';
 import Header from '../../components/header/header';
 import MainPageTabs from '../../components/main-page-tabs/main-page-tabs';
+import Map from '../../components/map/map';
 import { Offer } from '../../types/offer';
+import { CITY } from '../../mocks/city';
 
 type MainPageProps = {
   offers: Offer[];
@@ -43,7 +45,7 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
               <OfferList offers={offers} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map offers={offers} city={CITY} />
             </div>
           </div>
         </div>
