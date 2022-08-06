@@ -1,6 +1,7 @@
-import { City } from '../types/city';
+import { Location } from '../types/location';
+import { DEFAULT_MAP_ZOOM } from '../const';
 
-export const CITY: City = {
-  center: [52.390955, 4.853096],
-  zoom: 10
+export const CITY: Location = {
+  center: [52.375955, 4.899096],
+  zoom: DEFAULT_MAP_ZOOM,
 };

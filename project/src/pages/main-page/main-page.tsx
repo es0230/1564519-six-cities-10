@@ -45,7 +45,7 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
               <OfferList offers={offers} />
             </section>
             <div className="cities__right-section">
-              <Map offers={offers} city={CITY} />
+              <Map offers={offers} location={CITY} />
             </div>
           </div>
         </div>
