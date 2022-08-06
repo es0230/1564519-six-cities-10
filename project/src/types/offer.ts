@@ -1,5 +1,6 @@
 import { Owner } from './owner';
 import { Review } from './review';
+import { Point } from './point';
 
 export type Offer = {
   id: number;
@@ -15,6 +16,7 @@ export type Offer = {
   isFavorite: boolean;
   isPremium: boolean;
   ownerInfo: Owner;
+  location: Point;
   placeReviews: Review[];
 }
 

@@ -30,6 +30,7 @@ export const offers: Offer[] = [
     isPremium: false,
     ownerInfo: owner,
     placeReviews: [reviews[0], reviews[1]],
+    location: { lat: 52.3909553943508, lng: 4.85309666406198 },
     features: ['Wi-Fi', 'Heating', 'Kitchen', 'Fridge', 'Towels', 'Cabel TV']
   },
   {
@@ -46,6 +47,7 @@ export const offers: Offer[] = [
     isPremium: true,
     ownerInfo: owner,
     placeReviews: [],
+    location: { lat: 52.369553943508, lng: 4.85309666406198 },
     features: ['Wi-Fi', 'Heating', 'Kitchen', 'Fridge', 'Washing Machine', 'Coffee Machine', 'Dishwasher', 'Towels', 'Baby seat', 'Cabel TV']
   },
   {
@@ -62,6 +64,7 @@ export const offers: Offer[] = [
     isPremium: false,
     ownerInfo: owner,
     placeReviews: [reviews[2]],
+    location: { lat: 52.3909553943508, lng: 4.929309666406198 },
     features: ['Wi-Fi', 'Heating', 'Fridge', 'Towels', 'Cabel TV']
   },
   {
@@ -78,6 +81,7 @@ export const offers: Offer[] = [
     isPremium: true,
     ownerInfo: owner,
     placeReviews: [reviews[3]],
+    location: { lat: 52.3809553943508, lng: 4.939309666406198 },
     features: ['Wi-Fi', 'Heating', 'Towels', 'Cabel TV']
   }
 ];
