@@ -1,4 +1,4 @@
-export type City = {
+export type Location = {
   center: [number, number];
   zoom: number;
 };
