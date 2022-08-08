@@ -19,7 +19,7 @@ function PlaceCard({ offer, mouseOverHandler }: PlaceCardProps): JSX.Element {
         null}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offers/${offer.id}`}>
-          <img className="place-card__image" src={images[id - 1]} width="260" height="200" alt="Place" />
+          <img className="place-card__image" src={images[id % 4]} width="260" height="200" alt="Place" />
         </Link>
       </div>
       <div className="place-card__info">

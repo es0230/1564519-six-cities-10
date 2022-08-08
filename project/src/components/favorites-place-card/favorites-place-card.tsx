@@ -18,7 +18,7 @@ function FavoritesPlaceCard({ offer }: FavoritesPlaceCardProps): JSX.Element {
         null}
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={`/offers/${offer.id}`}>
-          <img className="place-card__image" src={images[id - 1]} width="150" height="110" alt="Place" />
+          <img className="place-card__image" src={images[id % 4]} width="150" height="110" alt="Place" />
         </Link>
       </div>
       <div className="favorites__card-info place-card__info">

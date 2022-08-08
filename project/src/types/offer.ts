@@ -1,5 +1,6 @@
 import { Owner } from './owner';
 import { Review } from './review';
+import type { Coordinates } from './coordinates';
 
 export type Offer = {
   id: number;
@@ -7,6 +8,7 @@ export type Offer = {
   price: number;
   bedroomCount: number;
   guestLimit: number;
+  city: string;
   title: string;
   description: string;
   placeType: string;
@@ -15,7 +17,7 @@ export type Offer = {
   isFavorite: boolean;
   isPremium: boolean;
   ownerInfo: Owner;
-  coordinates: [number, number];
+  coordinates: Coordinates;
   placeReviews: Review[];
 }
 
