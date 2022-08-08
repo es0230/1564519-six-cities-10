@@ -1,19 +1,21 @@
 import Header from '../../components/header/header';
-import FavoritesPlaceCard from '../../components/favorites-place-card/favorites-place-card';
+import FavoritesCitySection from '../../components/favorites-city-section/favorites-city-section';
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
+import { Cities } from '../../const';
 
 type FavoritePageProps = {
   offers: Offer[];
 };
 
 function FavoritePage({ offers }: FavoritePageProps): JSX.Element {
-  const favoriteCount = offers.filter((offer) => offer.isFavorite).length;
+  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
+  const cities = Object.keys(Cities);
 
   return (
     <div className="page">
       <Header
-        favoriteCount={favoriteCount}
+        favoriteCount={favoriteOffers.length}
       />
 
       <main className="page__main page__main--favorites">
@@ -21,23 +23,7 @@ function FavoritePage({ offers }: FavoritePageProps): JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="/">
-                      <span>Amsterdam</span>
-                    </a>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  {offers.map((offer) => offer.isFavorite ?
-                    <FavoritesPlaceCard
-                      key={offer.id}
-                      offer={offer}
-                    /> :
-                    null)}
-                </div>
-              </li>
+              {cities.map((city) => <FavoritesCitySection key={city} city={city} offers={favoriteOffers.filter((offer) => offer.city === city)} />)}
             </ul>
           </section>
         </div>
