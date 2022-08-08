@@ -7,7 +7,6 @@ import { useParams } from 'react-router-dom';
 import PropertyInside from '../../components/property-inside/property-inside';
 import PlaceReviews from '../../components/place-reviews/place-reviews';
 import Map from '../../components/map/map';
-import { DEFAULT_MAP_ZOOM } from '../../const';
 import NeighbouringOffers from '../../components/neighbouring-offers/neighbouring-offers';
 
 type RoomPageProps = {
@@ -81,7 +80,7 @@ function RoomPage({ offers }: RoomPageProps): JSX.Element {
             </div>
           </div>
           <div style={{ width: '1150px', height: '500px', margin: '0 auto 50px auto' }}>
-            <Map offers={otherOffers} location={{ center: currentOffer.coordinates, zoom: DEFAULT_MAP_ZOOM }} />
+            <Map offers={otherOffers} currentCity={currentOffer.coordinates} />
           </div>
         </section>
         <div className="container">

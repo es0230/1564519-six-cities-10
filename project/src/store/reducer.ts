@@ -3,7 +3,7 @@ import { offers } from '../mocks/offers';
 import { cityChange, offerListFilling } from './action';
 
 const initialState = {
-  city: 'Amsterdam',
+  city: 'Paris',
   offers: offers,
 };
 

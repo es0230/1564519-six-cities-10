@@ -1,14 +1,13 @@
-import { Offer } from '../../types/offer';
+import type { Offer } from '../../types/offer';
+import type { Coordinates } from '../../types/coordinates';
 import { Icon } from 'leaflet';
-import { URL_MARKER_DEFAULT } from '../../const';
-import 'leaflet/dist/leaflet.css';
-import { useRef } from 'react';
-import { Location } from '../../types/location';
+import { DEFAULT_MAP_ZOOM, URL_MARKER_DEFAULT } from '../../const';
+import MapViewChanger from '../map-view-changer/map-view-changer';
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 
 type MapProps = {
   offers: Offer[];
-  location: Location;
+  currentCity: Coordinates;
 };
 
 const MAP_WIDTH = '100%';
@@ -20,15 +19,14 @@ const defaultCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-function Map({ offers, location }: MapProps): JSX.Element {
-  const mapRef = useRef(null);
-
+function Map({ offers, currentCity }: MapProps): JSX.Element {
   return (
-    <MapContainer style={{ width: MAP_WIDTH, height: MAP_HEIGHT }} center={location.center} zoom={location.zoom} scrollWheelZoom={false} ref={mapRef}>
+    <MapContainer style={{ width: MAP_WIDTH, height: MAP_HEIGHT }} center={currentCity} zoom={DEFAULT_MAP_ZOOM} scrollWheelZoom={false}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+      <MapViewChanger currentCity={currentCity} />
       {offers.map((offer) => <Marker key={offer.id} position={offer.coordinates} icon={defaultCustomIcon} />)}
     </MapContainer>
   );
