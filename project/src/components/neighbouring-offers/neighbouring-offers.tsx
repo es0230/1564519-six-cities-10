@@ -1,13 +1,12 @@
-import { useState } from 'react';
 import { Offer } from '../../types/offer';
 import PlaceCard from '../place-card/place-card';
 
 type NeighbouringOffersProps = {
   offers: Offer[];
+  onCardHover: (offer: Offer) => void;
 }
 
-function NeighbouringOffers({ offers }: NeighbouringOffersProps): JSX.Element {
-  const [, setActiveCard] = useState({});
+function NeighbouringOffers({ offers, onCardHover }: NeighbouringOffersProps): JSX.Element {
 
   return (
     <section className="near-places places">
@@ -17,7 +16,7 @@ function NeighbouringOffers({ offers }: NeighbouringOffersProps): JSX.Element {
           <PlaceCard
             key={offer.id}
             offer={offer}
-            mouseOverHandler={() => setActiveCard(offer)}
+            mouseOverHandler={() => onCardHover(offer)}
           />))}
       </div>
     </section>

@@ -8,20 +8,28 @@ import PropertyInside from '../../components/property-inside/property-inside';
 import PlaceReviews from '../../components/place-reviews/place-reviews';
 import Map from '../../components/map/map';
 import NeighbouringOffers from '../../components/neighbouring-offers/neighbouring-offers';
+import { useState } from 'react';
 
 type RoomPageProps = {
   offers: Offer[];
 }
 
 function RoomPage({ offers }: RoomPageProps): JSX.Element {
+  const [activeCard, setActiveCard] = useState<Offer | null>(null);
+
   const favoriteCount = offers.filter((offer) => offer.isFavorite).length;
   const { id } = useParams();
   const currentOffer = offers.find((offer) => String(offer.id) === id);
-  const otherOffers = offers.filter((offer) => String(offer.id) !== id);
+  const otherOffers = offers.filter((offer) => String(offer.id) !== id).filter((offer) => currentOffer !== undefined && currentOffer.city === offer.city);
+
+  const onCardHover = (offer: Offer) => {
+    setActiveCard(offer);
+  };
 
   if (currentOffer === undefined) {
     return <NotFound />;
   }
+
   const { price, bedroomCount, rating, guestLimit, title, description, placeType, images, isFavorite, isPremium, ownerInfo, features, placeReviews } = currentOffer;
   return (
     <div className="page">
@@ -80,12 +88,12 @@ function RoomPage({ offers }: RoomPageProps): JSX.Element {
             </div>
           </div>
           <div style={{ width: '1150px', height: '500px', margin: '0 auto 50px auto' }}>
-            <Map offers={otherOffers} currentCity={currentOffer.coordinates} />
+            <Map offers={otherOffers} currentCity={currentOffer.coordinates} activeCard={activeCard} />
           </div>
         </section>
         <div className="container">
           <section className="near-places places">
-            <NeighbouringOffers offers={otherOffers} />
+            <NeighbouringOffers offers={otherOffers} onCardHover={onCardHover} />
           </section>
         </div>
       </main>
