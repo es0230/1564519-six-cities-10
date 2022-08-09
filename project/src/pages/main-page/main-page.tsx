@@ -6,16 +6,22 @@ import { Offer } from '../../types/offer';
 import { useAppSelector } from '../../hooks';
 import { Cities } from '../../const';
 import SortVariants from '../../components/sort-variants/sort-variants';
+import { useState } from 'react';
 
 type MainPageProps = {
   offers: Offer[];
 };
 
 function MainPage({ offers }: MainPageProps): JSX.Element {
-  const favoriteCount = offers.filter((offer) => offer.isFavorite).length;
+  const [activeCard, setActiveCard] = useState<Offer | null>(null);
 
+  const favoriteCount = offers.filter((offer) => offer.isFavorite).length;
   const currentCity = useAppSelector((state) => state.city);
   const localOffers = useAppSelector((state) => state.offers).filter((offer) => offer.city === currentCity);
+
+  const onCardHover = (offer: Offer) => {
+    setActiveCard(offer);
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -32,10 +38,10 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{localOffers.length} place{localOffers.length > 1 ? 's' : ''} to stay in {currentCity}</b>
               <SortVariants />
-              <OfferList offers={localOffers} />
+              <OfferList offers={localOffers} onCardHover={onCardHover} />
             </section>
             <div className="cities__right-section">
-              <Map offers={localOffers} currentCity={Cities[currentCity]} />
+              <Map offers={localOffers} currentCity={Cities[currentCity]} activeCard={activeCard} />
             </div>
           </div>
         </div>
