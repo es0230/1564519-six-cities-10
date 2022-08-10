@@ -20,7 +20,7 @@ function RoomPage(): JSX.Element {
   const favoriteCount = offers.filter((offer) => offer.isFavorite).length;
   const { id } = useParams();
   const currentOffer = offers.find((offer) => String(offer.id) === id);
-  const otherOffers = offers.filter((offer) => String(offer.id) !== id).filter((offer) => currentOffer !== undefined && currentOffer.city === offer.city);
+  const otherOffers = offers.filter((offer) => String(offer.id) !== id).filter((offer) => currentOffer !== undefined && currentOffer.city.name === offer.city.name);
 
   const onCardHover = (offer: Offer) => {
     setActiveCard(offer);
@@ -93,9 +93,7 @@ function RoomPage(): JSX.Element {
           </div>
         </section>
         <div className="container">
-          <section className="near-places places">
-            <NeighbouringOffers offers={otherOffers} onCardHover={onCardHover} />
-          </section>
+          <NeighbouringOffers offers={otherOffers} onCardHover={onCardHover} />
         </div>
       </main>
     </div>
