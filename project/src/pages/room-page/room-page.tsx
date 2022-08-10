@@ -9,13 +9,13 @@ import PlaceReviews from '../../components/place-reviews/place-reviews';
 import Map from '../../components/map/map';
 import NeighbouringOffers from '../../components/neighbouring-offers/neighbouring-offers';
 import { useState } from 'react';
+import { getOfferCoordinates } from '../../util';
+import { reviews } from '../../mocks/reviews';
+import { useAppSelector } from '../../hooks';
 
-type RoomPageProps = {
-  offers: Offer[];
-}
-
-function RoomPage({ offers }: RoomPageProps): JSX.Element {
+function RoomPage(): JSX.Element {
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
+  const offers = useAppSelector((state) => state.offers);
 
   const favoriteCount = offers.filter((offer) => offer.isFavorite).length;
   const { id } = useParams();
@@ -30,7 +30,8 @@ function RoomPage({ offers }: RoomPageProps): JSX.Element {
     return <NotFound />;
   }
 
-  const { price, bedroomCount, rating, guestLimit, title, description, placeType, images, isFavorite, isPremium, ownerInfo, features, placeReviews } = currentOffer;
+  const { price, bedrooms, rating, maxAdults, title, description, type, images, isFavorite, isPremium, host, goods } = currentOffer;
+
   return (
     <div className="page">
       <Header
@@ -69,26 +70,26 @@ function RoomPage({ offers }: RoomPageProps): JSX.Element {
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {placeType}
+                  {type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {bedroomCount}
+                  {bedrooms}
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max {guestLimit} adults
+                  Max {maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">
                 <b className="property__price-value">&euro;{price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
-              <PropertyInside features={features} />
-              <PropertyHost owner={ownerInfo} placeDescription={description} />
-              <PlaceReviews reviews={placeReviews} />
+              <PropertyInside features={goods} />
+              <PropertyHost owner={host} placeDescription={description} />
+              <PlaceReviews reviews={reviews} />
             </div>
           </div>
           <div style={{ width: '1150px', height: '500px', margin: '0 auto 50px auto' }}>
-            <Map offers={otherOffers} currentCity={currentOffer.coordinates} activeCard={activeCard} />
+            <Map offers={otherOffers} currentCity={getOfferCoordinates(currentOffer)} activeCard={activeCard} />
           </div>
         </section>
         <div className="container">

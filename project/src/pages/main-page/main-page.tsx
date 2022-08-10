@@ -8,16 +8,13 @@ import { Cities } from '../../const';
 import SortVariants from '../../components/sort-variants/sort-variants';
 import { useState } from 'react';
 
-type MainPageProps = {
-  offers: Offer[];
-};
-
-function MainPage({ offers }: MainPageProps): JSX.Element {
+function MainPage(): JSX.Element {
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
+  const offers = useAppSelector((state) => state.offers);
 
   const favoriteCount = offers.filter((offer) => offer.isFavorite).length;
   const currentCity = useAppSelector((state) => state.city);
-  const localOffers = useAppSelector((state) => state.offers).filter((offer) => offer.city === currentCity);
+  const localOffers = useAppSelector((state) => state.offers).filter((offer) => offer.city.name === currentCity);
 
   const onCardHover = (offer: Offer) => {
     setActiveCard(offer);

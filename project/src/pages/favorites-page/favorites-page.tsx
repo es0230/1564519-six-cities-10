@@ -1,14 +1,11 @@
 import Header from '../../components/header/header';
 import FavoritesCitySection from '../../components/favorites-city-section/favorites-city-section';
-import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
 import { Cities } from '../../const';
+import { useAppSelector } from '../../hooks';
 
-type FavoritePageProps = {
-  offers: Offer[];
-};
-
-function FavoritePage({ offers }: FavoritePageProps): JSX.Element {
+function FavoritePage(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
   const cities = Object.keys(Cities);
 
@@ -23,7 +20,7 @@ function FavoritePage({ offers }: FavoritePageProps): JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {cities.map((city) => <FavoritesCitySection key={city} city={city} offers={favoriteOffers.filter((offer) => offer.city === city)} />)}
+              {cities.map((city) => <FavoritesCitySection key={city} city={city} offers={favoriteOffers.filter((offer) => offer.city.name === city)} />)}
             </ul>
           </section>
         </div>

@@ -1,24 +1,36 @@
-import { Owner } from './owner';
-import { Review } from './review';
-import type { Coordinates } from './coordinates';
-
 export type Offer = {
-  id: number;
-  rating: number;
-  price: number;
-  bedroomCount: number;
-  guestLimit: number;
-  city: string;
-  title: string;
-  description: string;
-  placeType: string;
-  images: string[];
-  features: string[];
-  isFavorite: boolean;
-  isPremium: boolean;
-  ownerInfo: Owner;
-  coordinates: Coordinates;
-  placeReviews: Review[];
+  bedrooms: number
+  city: {
+    location: {
+      latitude: number
+      longitude: number
+      zoom: number
+    }
+    name: string
+  }
+  description: string
+  goods: [string]
+  host: {
+    avatarUrl: string
+    id: number
+    isPro: boolean
+    name: string
+  }
+  id: number
+  images: [string]
+  isFavorite: boolean
+  isPremium: boolean
+  location: {
+    latitude: number
+    longitude: number
+    zoom: number
+  }
+  maxAdults: number
+  previewImage: string
+  price: number
+  rating: number
+  title: string
+  type: string
 }
 
 

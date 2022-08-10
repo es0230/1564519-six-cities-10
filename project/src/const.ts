@@ -13,6 +13,10 @@ enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+enum APIRoute {
+  Offers = '/hotels',
+}
+
 const Cities: { [index: string]: Coordinates } = {
   'Paris': [48.854938, 2.349892],
   'Cologne': [50.937442, 6.959837],
@@ -30,4 +34,4 @@ const URL_MARKER_ACTIVE =
 
 const DEFAULT_MAP_ZOOM = 12;
 
-export { AppRoute, AuthorizationStatus, URL_MARKER_DEFAULT, URL_MARKER_ACTIVE, DEFAULT_MAP_ZOOM, Cities };
+export { AppRoute, AuthorizationStatus, APIRoute, URL_MARKER_DEFAULT, URL_MARKER_ACTIVE, DEFAULT_MAP_ZOOM, Cities };

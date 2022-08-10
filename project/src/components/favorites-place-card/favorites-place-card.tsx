@@ -6,7 +6,7 @@ type FavoritesPlaceCardProps = {
 }
 
 function FavoritesPlaceCard({ offer }: FavoritesPlaceCardProps): JSX.Element {
-  const { isPremium, price, title, placeType, images, id } = offer;
+  const { isPremium, price, title, type, images, id } = offer;
   //еще рейтинг как-то сделать
   return (
     <article className="favorites__card place-card">
@@ -43,7 +43,7 @@ function FavoritesPlaceCard({ offer }: FavoritesPlaceCardProps): JSX.Element {
         <h2 className="place-card__name">
           <Link to={`/offers/${offer.id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{placeType}</p>
+        <p className="place-card__type">{type}</p>
       </div>
     </article>
   );
