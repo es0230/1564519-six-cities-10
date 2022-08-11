@@ -13,3 +13,7 @@ export const setDataLoadedStatus = createAction<boolean>('data/setDataLoadedStat
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 
 export const setActiveUser = createAction<string | null>('user/setActiveUser');
+
+//export const loadOffer = createAction<Offer>('data/loadOffer');
+
+//export const loadNearbyOffers = createAction<Offer[]>('data/loadNearbyOffers');

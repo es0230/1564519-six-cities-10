@@ -1,11 +1,10 @@
+import { useAppSelector } from '../../hooks';
 import Logo from '../logo/logo';
 import Profile from '../profile/profile';
 
-type HeaderProps = {
-  favoriteCount: number
-}
+function Header(): JSX.Element {
+  const favoriteCount = useAppSelector((state) => state.offers).filter((offer) => offer.isFavorite).length;
 
-function Header({ favoriteCount }: HeaderProps): JSX.Element {
   return (
     <header className="header">
       <div className="container">

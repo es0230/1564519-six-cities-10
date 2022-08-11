@@ -3,28 +3,28 @@ import OfferGallery from '../../components/offer-gallery/offer-gallery';
 import NotFound from '../../components/not-found/not-found';
 import PropertyHost from '../../components/property-host/property-host';
 import { Offer } from '../../types/offer';
-import { useParams } from 'react-router-dom';
 import PropertyInside from '../../components/property-inside/property-inside';
 import PlaceReviews from '../../components/place-reviews/place-reviews';
 import Map from '../../components/map/map';
 import NeighbouringOffers from '../../components/neighbouring-offers/neighbouring-offers';
-import { useState } from 'react';
 import { getOfferCoordinates } from '../../util';
-import { reviews } from '../../mocks/reviews';
-import { useAppSelector } from '../../hooks';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { api } from '../../store';
+import { APIRoute } from '../../const';
+import { Review } from '../../types/review';
 
 function RoomPage(): JSX.Element {
-  const [activeCard, setActiveCard] = useState<Offer | null>(null);
-  const offers = useAppSelector((state) => state.offers);
-
-  const favoriteCount = offers.filter((offer) => offer.isFavorite).length;
   const { id } = useParams();
-  const currentOffer = offers.find((offer) => String(offer.id) === id);
-  const otherOffers = offers.filter((offer) => String(offer.id) !== id).filter((offer) => currentOffer !== undefined && currentOffer.city.name === offer.city.name);
+  const [currentOffer, setCurrentOffer] = useState<Offer>();
+  const [neighbouringOffers, setNeighbouringOffers] = useState<Offer[]>();
+  const [reviewList, setReviewList] = useState<Review[]>();
 
-  const onCardHover = (offer: Offer) => {
-    setActiveCard(offer);
-  };
+  useEffect(() => {
+    api.get<Offer>(`${APIRoute.Offers}/${id}`).then((offer) => setCurrentOffer(offer.data));
+    api.get<Offer[]>(`${APIRoute.Offers}/${id}/nearby`).then((offers) => setNeighbouringOffers(offers.data));
+    api.get<Review[]>(`${APIRoute.Comments}/${id}`).then((comments) => setReviewList(comments.data));
+  }, [id]);
 
   if (currentOffer === undefined) {
     return <NotFound />;
@@ -34,9 +34,7 @@ function RoomPage(): JSX.Element {
 
   return (
     <div className="page">
-      <Header
-        favoriteCount={favoriteCount}
-      />
+      <Header />
 
       <main className="page__main page__main--property">
         <section className="property">
@@ -85,15 +83,15 @@ function RoomPage(): JSX.Element {
               </div>
               <PropertyInside features={goods} />
               <PropertyHost owner={host} placeDescription={description} />
-              <PlaceReviews reviews={reviews} />
+              <PlaceReviews reviews={reviewList} />
             </div>
           </div>
           <div style={{ width: '1150px', height: '500px', margin: '0 auto 50px auto' }}>
-            <Map offers={otherOffers} currentCity={getOfferCoordinates(currentOffer)} activeCard={activeCard} />
+            <Map offers={neighbouringOffers} currentCity={getOfferCoordinates(currentOffer)} />
           </div>
         </section>
         <div className="container">
-          <NeighbouringOffers offers={otherOffers} onCardHover={onCardHover} />
+          <NeighbouringOffers offers={neighbouringOffers} />
         </div>
       </main>
     </div>

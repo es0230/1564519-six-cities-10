@@ -3,7 +3,7 @@ import { Offer } from '../../types/offer';
 
 type PlaceCardProps = {
   offer: Offer;
-  mouseOverHandler: () => void;
+  mouseOverHandler?: () => void;
 };
 
 function PlaceCard({ offer, mouseOverHandler }: PlaceCardProps): JSX.Element {

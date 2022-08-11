@@ -8,7 +8,7 @@ import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { loadOffers, requireAuthorization, setActiveUser, setDataLoadedStatus } from './action';
 
-export const fetchOfferAction = createAsyncThunk<void, undefined, {
+export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
@@ -21,6 +21,34 @@ export const fetchOfferAction = createAsyncThunk<void, undefined, {
     dispatch(setDataLoadedStatus(false));
   },
 );
+
+//export const fetchOfferAction = createAsyncThunk<void, number, {
+//  dispatch: AppDispatch,
+//  state: State,
+//  extra: AxiosInstance
+//}>(
+//  'data/fetchOffer',
+//  async (id, { dispatch, extra: api }) => {
+//    const { data } = await api.get<Offer>(`${APIRoute.Offers}/${id}`);
+//    //dispatch(setDataLoadedStatus(true));
+//    dispatch(loadOffer(data));
+//    //dispatch(setDataLoadedStatus(false));
+//  },
+//);
+
+//export const fetchNearbyOffersAction = createAsyncThunk<void, number, {
+//  dispatch: AppDispatch,
+//  state: State,
+//  extra: AxiosInstance
+//}>(
+//  'data/fetchNearbyOffers',
+//  async (id, { dispatch, extra: api }) => {
+//    const { data } = await api.get<Offer[]>(`${APIRoute.Offers}/${id}/nearby`);
+//    //dispatch(setDataLoadedStatus(true));
+//    dispatch(loadNearbyOffers(data));
+//    //dispatch(setDataLoadedStatus(false));
+//  },
+//);
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,

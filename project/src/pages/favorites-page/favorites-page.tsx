@@ -11,9 +11,7 @@ function FavoritePage(): JSX.Element {
 
   return (
     <div className="page">
-      <Header
-        favoriteCount={favoriteOffers.length}
-      />
+      <Header />
 
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">

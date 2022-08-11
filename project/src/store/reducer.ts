@@ -8,7 +8,9 @@ type InitialState = {
   offers: Offer[],
   authorizationStatus: AuthorizationStatus,
   isDataLoaded: boolean,
-  user: string | null;
+  user: string | null,
+  //currentOffer: Offer | null,
+  //nearbyOffers: Offer[],
 };
 
 const initialState: InitialState = {
@@ -16,7 +18,9 @@ const initialState: InitialState = {
   offers: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   isDataLoaded: false,
-  user: null
+  user: null,
+  //currentOffer: null,
+  //nearbyOffers: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -38,6 +42,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setActiveUser, (state, action) => {
       state.user = action.payload;
+      //})
+      //.addCase(loadOffer, (state, action) => {
+      //  state.currentOffer = action.payload;
+      //})
+      //.addCase(loadNearbyOffers, (state, action) => {
+      //  state.nearbyOffers = action.payload;
     });
 });
 

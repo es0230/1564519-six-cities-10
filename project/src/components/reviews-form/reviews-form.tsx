@@ -1,38 +1,23 @@
-import { nanoid } from '@reduxjs/toolkit';
 import React, { useState } from 'react';
-import { Review } from '../../types/review';
+import { Comment } from '../../types/comment';
 
-type ReviewsFormProps = {
-  reviewList: Review[];
-  handleFormSubmit: React.Dispatch<React.SetStateAction<Review[]>>;
-}
 
-function ReviewsForm({ reviewList, handleFormSubmit }: ReviewsFormProps): JSX.Element {
+function ReviewsForm(): JSX.Element {
+  const [newComment, setNewComment] = useState<Comment>({
+    comment: '',
+    rating: 0,
+  });
+
   const ratingClickHandle = (evt: React.MouseEvent<HTMLInputElement>) => {
     const { value } = evt.currentTarget;
-    setReview({ ...review, rating: Number(value) });
+    setNewComment({ ...newComment, rating: Number(value) });
   };
 
   const reviewWritingHandle = (evt: React.FormEvent<HTMLTextAreaElement>) => {
     const { value } = evt.currentTarget;
-    setReview({ ...review, reviewText: value });
+    setNewComment({ ...newComment, comment: value });
   };
 
-  const reviewSubmitHandle = (evt: React.FormEvent<HTMLButtonElement>) => {
-    evt.preventDefault();
-    setReview({ ...review, id: nanoid() });
-
-    handleFormSubmit([...reviewList, review]);
-  };
-
-  const [review, setReview] = useState({
-    avatar: '',
-    name: '',
-    date: '',
-    reviewText: '',
-    rating: 0,
-    id: '',
-  });
 
   return (
     <form className="reviews__form form" action="#" method="post">
@@ -78,7 +63,7 @@ function ReviewsForm({ reviewList, handleFormSubmit }: ReviewsFormProps): JSX.El
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled onSubmit={reviewSubmitHandle} >Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled >Submit</button>
       </div>
     </form >
   );
