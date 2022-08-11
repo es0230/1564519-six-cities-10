@@ -15,6 +15,7 @@ function LoginPage(): JSX.Element {
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
+    navigate(AppRoute.Main);
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
@@ -72,7 +73,7 @@ function LoginPage(): JSX.Element {
               <button
                 className="login__submit form__submit button"
                 type="submit"
-                onClick={() => navigate(AppRoute.Main)}
+              //onClick={() => navigate(AppRoute.Main)}
               >
                 Sign in
               </button>
