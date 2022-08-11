@@ -7,7 +7,7 @@ type PlaceCardProps = {
 };
 
 function PlaceCard({ offer, mouseOverHandler }: PlaceCardProps): JSX.Element {
-  const { price, title, placeType, images, isFavorite, isPremium, id } = offer;
+  const { price, title, type, images, isFavorite, isPremium } = offer;
   //еще рейтинг как-то сделать
   return (
     <article className="cities__card place-card" onMouseOver={mouseOverHandler}>
@@ -19,7 +19,7 @@ function PlaceCard({ offer, mouseOverHandler }: PlaceCardProps): JSX.Element {
         null}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offers/${offer.id}`}>
-          <img className="place-card__image" src={images[id % 4]} width="260" height="200" alt="Place" />
+          <img className="place-card__image" src={images[0]} width="260" height="200" alt="Place" />
         </Link>
       </div>
       <div className="place-card__info">
@@ -44,7 +44,7 @@ function PlaceCard({ offer, mouseOverHandler }: PlaceCardProps): JSX.Element {
         <h2 className="place-card__name">
           <Link to={`/offers/${offer.id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{placeType}</p>
+        <p className="place-card__type">{type}</p>
       </div>
     </article>
   );

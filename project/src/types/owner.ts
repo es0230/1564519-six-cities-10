@@ -1,5 +1,6 @@
 export type Owner = {
-  avatar: string;
-  name: string;
-  isPro: boolean;
+  avatarUrl: string
+  id: number
+  isPro: boolean
+  name: string
 };
