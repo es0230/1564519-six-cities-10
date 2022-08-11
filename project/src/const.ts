@@ -15,6 +15,8 @@ enum AuthorizationStatus {
 
 enum APIRoute {
   Offers = '/hotels',
+  Login = '/login', //post
+  Logout = '/logout', //delete
 }
 
 const Cities: { [index: string]: Coordinates } = {
