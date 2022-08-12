@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import { api } from '../../store';
 import { APIRoute } from '../../const';
 import { Review } from '../../types/review';
+import LoadingScreen from '../../components/loading-screen/loading-screen';
 
 function RoomPage(): JSX.Element {
   const { id } = useParams();
@@ -27,6 +28,10 @@ function RoomPage(): JSX.Element {
   }, [id]);
 
   if (currentOffer === undefined) {
+    return <LoadingScreen />;
+  }
+
+  if (currentOffer === null) {
     return <NotFound />;
   }
 
@@ -87,7 +92,7 @@ function RoomPage(): JSX.Element {
             </div>
           </div>
           <div style={{ width: '1150px', height: '500px', margin: '0 auto 50px auto' }}>
-            <Map offers={neighbouringOffers} currentCity={getOfferCoordinates(currentOffer)} />
+            <Map offers={neighbouringOffers?.concat(currentOffer)} currentCity={getOfferCoordinates(currentOffer)} activeCard={currentOffer} />
           </div>
         </section>
         <div className="container">

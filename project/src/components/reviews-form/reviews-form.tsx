@@ -1,12 +1,23 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { APIRoute } from '../../const';
+import { api } from '../../store';
 import { Comment } from '../../types/comment';
+import { Review } from '../../types/review';
 
+const initialState: Comment = {
+  comment: '',
+  rating: 0,
+};
 
-function ReviewsForm(): JSX.Element {
-  const [newComment, setNewComment] = useState<Comment>({
-    comment: '',
-    rating: 0,
-  });
+type ReviewsFormProps = {
+  handleFormSubmit: React.Dispatch<React.SetStateAction<Review[] | undefined>>
+}
+
+function ReviewsForm({ handleFormSubmit }: ReviewsFormProps): JSX.Element {
+  const { id } = useParams();
+  const [newComment, setNewComment] = useState<Comment>(initialState);
 
   const ratingClickHandle = (evt: React.MouseEvent<HTMLInputElement>) => {
     const { value } = evt.currentTarget;
@@ -18,6 +29,17 @@ function ReviewsForm(): JSX.Element {
     setNewComment({ ...newComment, comment: value });
   };
 
+  const onFormSubmit = async (evt: React.FormEvent<HTMLButtonElement>) => {
+    evt.preventDefault();
+    try {
+      const { data: commentList } = await api.post<Review[]>(`${APIRoute.Comments}/${id}`, newComment);
+      handleFormSubmit(commentList);
+      setNewComment(initialState);
+    } catch {
+      console.log('Запрос не удался');
+    }
+    //api.post<Review[]>(`${APIRoute.Comments}/${id}`, newComment).then((commentList) => handleFormSubmit(commentList.data));
+  };
 
   return (
     <form className="reviews__form form" action="#" method="post">
@@ -58,12 +80,27 @@ function ReviewsForm(): JSX.Element {
           </svg>
         </label>
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={reviewWritingHandle}></textarea>
+      <textarea
+        className="reviews__textarea form__textarea"
+        id="review"
+        name="review"
+        placeholder="Tell how was your stay, what you like and what can be improved"
+        onChange={reviewWritingHandle}
+        value={newComment.comment}
+      >
+      </textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled >Submit</button>
+        <button
+          className="reviews__submit form__submit button"
+          type="button"
+          disabled={newComment.comment.length <= 50 || newComment.rating === 0}
+          onClick={onFormSubmit}
+        >
+          Submit
+        </button>
       </div>
     </form >
   );

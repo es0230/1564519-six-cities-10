@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Review } from '../../types/review';
 import ReviewsForm from '../reviews-form/reviews-form';
 import ReviewsList from '../reviews-list/reviews-list';
@@ -7,11 +9,19 @@ type PlaceReviewsProps = {
 }
 
 function PlaceReviews({ reviews }: PlaceReviewsProps): JSX.Element {
+  const [commentList, setCommentList] = useState<Review[] | undefined>(reviews);
+  const { id } = useParams();
+
+  useEffect(() => {
+    setCommentList(reviews);
+  }, [reviews, id]);
+
+
   return (
     <section className="property__reviews reviews">
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews?.length}</span></h2>
-      <ReviewsList reviews={reviews} />
-      <ReviewsForm />
+      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{commentList?.length}</span></h2>
+      <ReviewsList reviews={commentList} />
+      <ReviewsForm handleFormSubmit={setCommentList} />
     </section>
   );
 }

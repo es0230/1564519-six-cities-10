@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { offerListFilling } from '../../store/action';
 import { Offer } from '../../types/offer';
@@ -15,7 +15,6 @@ function SortVariants(): JSX.Element {
 
   const [open, setOpen] = useState(false);
   const [sortType, setSortType] = useState(sortTypes.default);
-  const sortOptions = useRef<HTMLUListElement | null>(null);
   const dispatch = useAppDispatch();
   const offers = useAppSelector((state) => state.offers);
 
@@ -49,7 +48,7 @@ function SortVariants(): JSX.Element {
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul className={`places__options places__options--custom ${open ? 'places__options--opened' : ''}`} ref={sortOptions}>
+      <ul className={`places__options places__options--custom ${open ? 'places__options--opened' : ''}`}>
         {Object.values(sortTypes).map((type) => <SortVariant sortType={type} clickHandler={() => handleSortTypeClick(type)} key={type} />)}
       </ul>
     </form>

@@ -22,34 +22,6 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
   },
 );
 
-//export const fetchOfferAction = createAsyncThunk<void, number, {
-//  dispatch: AppDispatch,
-//  state: State,
-//  extra: AxiosInstance
-//}>(
-//  'data/fetchOffer',
-//  async (id, { dispatch, extra: api }) => {
-//    const { data } = await api.get<Offer>(`${APIRoute.Offers}/${id}`);
-//    //dispatch(setDataLoadedStatus(true));
-//    dispatch(loadOffer(data));
-//    //dispatch(setDataLoadedStatus(false));
-//  },
-//);
-
-//export const fetchNearbyOffersAction = createAsyncThunk<void, number, {
-//  dispatch: AppDispatch,
-//  state: State,
-//  extra: AxiosInstance
-//}>(
-//  'data/fetchNearbyOffers',
-//  async (id, { dispatch, extra: api }) => {
-//    const { data } = await api.get<Offer[]>(`${APIRoute.Offers}/${id}/nearby`);
-//    //dispatch(setDataLoadedStatus(true));
-//    dispatch(loadNearbyOffers(data));
-//    //dispatch(setDataLoadedStatus(false));
-//  },
-//);
-
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
   state: State,
