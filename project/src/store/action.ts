@@ -13,3 +13,5 @@ export const setDataLoadedStatus = createAction<boolean>('data/setDataLoadedStat
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 
 export const setActiveUser = createAction<string | null>('user/setActiveUser');
+
+export const toggleIsFavoriteCard = createAction<{ id: number, newIsFavorite: boolean }>('data/toggleIsFavoriteCard');

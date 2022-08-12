@@ -1,14 +1,16 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../const';
 import { Offer } from '../types/offer';
-import { cityChange, loadOffers, offerListFilling, requireAuthorization, setActiveUser, setDataLoadedStatus } from './action';
+import { cityChange, loadOffers, offerListFilling, requireAuthorization, setActiveUser, setDataLoadedStatus, toggleIsFavoriteCard } from './action';
 
 type InitialState = {
   city: string,
   offers: Offer[],
   authorizationStatus: AuthorizationStatus,
   isDataLoaded: boolean,
-  user: string | null;
+  user: string | null,
+  //currentOffer: Offer | null,
+  //nearbyOffers: Offer[],
 };
 
 const initialState: InitialState = {
@@ -16,7 +18,9 @@ const initialState: InitialState = {
   offers: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   isDataLoaded: false,
-  user: null
+  user: null,
+  //currentOffer: null,
+  //nearbyOffers: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -35,6 +39,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(toggleIsFavoriteCard, (state, action) => {
+      const toggledOffer = state.offers.find((offer) => action.payload.id === offer.id);
+      if (toggledOffer) {
+        toggledOffer.isFavorite = action.payload.newIsFavorite;
+      }
     })
     .addCase(setActiveUser, (state, action) => {
       state.user = action.payload;

@@ -1,14 +1,32 @@
+/* eslint-disable no-console */
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { APIRoute } from '../../const';
+import { useAppDispatch } from '../../hooks';
+import { api } from '../../store';
+import { toggleIsFavoriteCard } from '../../store/action';
 import { Offer } from '../../types/offer';
 
 type PlaceCardProps = {
   offer: Offer;
-  mouseOverHandler: () => void;
+  mouseOverHandler?: () => void;
 };
 
 function PlaceCard({ offer, mouseOverHandler }: PlaceCardProps): JSX.Element {
-  const { price, title, type, images, isFavorite, isPremium } = offer;
-  //еще рейтинг как-то сделать
+  const [isFavorite, setIsFavorite] = useState(offer.isFavorite);
+  const dispatch = useAppDispatch();
+
+  const onBookmarkButtonClick = async (id: number) => {
+    try {
+      const { data: updatedOffer } = await api.post<Offer>(`${APIRoute.Favorite}/${id}/${Number(!isFavorite)}`);
+      setIsFavorite(updatedOffer.isFavorite);
+      dispatch(toggleIsFavoriteCard({ id: id, newIsFavorite: updatedOffer.isFavorite }));
+    } catch {
+      console.log('Запрос не удался');
+    }
+  };
+
+  const { price, title, type, images, isPremium, rating, id } = offer;
   return (
     <article className="cities__card place-card" onMouseOver={mouseOverHandler}>
       {isPremium ?
@@ -28,7 +46,11 @@ function PlaceCard({ offer, mouseOverHandler }: PlaceCardProps): JSX.Element {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active' : ''}`} type="button">
+          <button
+            className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active' : ''}`}
+            type="button"
+            onClick={() => onBookmarkButtonClick(id)}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -37,7 +59,7 @@ function PlaceCard({ offer, mouseOverHandler }: PlaceCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }}></span>
+            <span style={{ width: `${20 * rating}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

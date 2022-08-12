@@ -1,6 +1,11 @@
+import Header from '../header/header';
+
 function LoadingScreen(): JSX.Element {
   return (
-    <p>Loading...</p>
+    <>
+      <Header />
+      <h1 style={{ textAlign: 'center', marginTop: '300px' }}>Loading...</h1>
+    </>
   );
 }
 

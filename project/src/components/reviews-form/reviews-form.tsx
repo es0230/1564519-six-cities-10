@@ -1,38 +1,44 @@
-import { nanoid } from '@reduxjs/toolkit';
+/* eslint-disable no-console */
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { APIRoute } from '../../const';
+import { api } from '../../store';
+import { Comment } from '../../types/comment';
 import { Review } from '../../types/review';
 
+const initialState: Comment = {
+  comment: '',
+  rating: 0,
+};
+
 type ReviewsFormProps = {
-  reviewList: Review[];
-  handleFormSubmit: React.Dispatch<React.SetStateAction<Review[]>>;
+  handleFormSubmit: React.Dispatch<React.SetStateAction<Review[] | undefined>>
 }
 
-function ReviewsForm({ reviewList, handleFormSubmit }: ReviewsFormProps): JSX.Element {
+function ReviewsForm({ handleFormSubmit }: ReviewsFormProps): JSX.Element {
+  const { id } = useParams();
+  const [newComment, setNewComment] = useState<Comment>(initialState);
+
   const ratingClickHandle = (evt: React.MouseEvent<HTMLInputElement>) => {
     const { value } = evt.currentTarget;
-    setReview({ ...review, rating: Number(value) });
+    setNewComment({ ...newComment, rating: Number(value) });
   };
 
   const reviewWritingHandle = (evt: React.FormEvent<HTMLTextAreaElement>) => {
     const { value } = evt.currentTarget;
-    setReview({ ...review, reviewText: value });
+    setNewComment({ ...newComment, comment: value });
   };
 
-  const reviewSubmitHandle = (evt: React.FormEvent<HTMLButtonElement>) => {
+  const onFormSubmit = async (evt: React.FormEvent<HTMLButtonElement>) => {
     evt.preventDefault();
-    setReview({ ...review, id: nanoid() });
-
-    handleFormSubmit([...reviewList, review]);
+    try {
+      const { data: commentList } = await api.post<Review[]>(`${APIRoute.Comments}/${id}`, newComment);
+      handleFormSubmit(commentList);
+      setNewComment(initialState);
+    } catch {
+      console.log('Запрос не удался');
+    }
   };
-
-  const [review, setReview] = useState({
-    avatar: '',
-    name: '',
-    date: '',
-    reviewText: '',
-    rating: 0,
-    id: '',
-  });
 
   return (
     <form className="reviews__form form" action="#" method="post">
@@ -73,12 +79,27 @@ function ReviewsForm({ reviewList, handleFormSubmit }: ReviewsFormProps): JSX.El
           </svg>
         </label>
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={reviewWritingHandle}></textarea>
+      <textarea
+        className="reviews__textarea form__textarea"
+        id="review"
+        name="review"
+        placeholder="Tell how was your stay, what you like and what can be improved"
+        onChange={reviewWritingHandle}
+        value={newComment.comment}
+      >
+      </textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled onSubmit={reviewSubmitHandle} >Submit</button>
+        <button
+          className="reviews__submit form__submit button"
+          type="button"
+          disabled={newComment.comment.length <= 50 || newComment.rating === 0}
+          onClick={onFormSubmit}
+        >
+          Submit
+        </button>
       </div>
     </form >
   );

@@ -1,3 +1,5 @@
+import { nanoid } from 'nanoid';
+
 type OfferGalleryProps = {
   images: string[];
 };
@@ -10,7 +12,7 @@ function OfferGallery({ images }: OfferGalleryProps): JSX.Element {
       {images.map((imageSrc, i) => {
         if (i < GALLERY_IMAGE_LIMIT) {
           return (
-            <div className="property__image-wrapper" key={imageSrc}>
+            <div className="property__image-wrapper" key={nanoid()}>
               <img className="property__image" src={imageSrc} alt="Studio" />
             </div>
           );
