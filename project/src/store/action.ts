@@ -14,6 +14,4 @@ export const requireAuthorization = createAction<AuthorizationStatus>('user/requ
 
 export const setActiveUser = createAction<string | null>('user/setActiveUser');
 
-//export const loadOffer = createAction<Offer>('data/loadOffer');
-
-//export const loadNearbyOffers = createAction<Offer[]>('data/loadNearbyOffers');
+export const toggleIsFavoriteCard = createAction<{ id: number, newIsFavorite: boolean }>('data/toggleIsFavoriteCard');

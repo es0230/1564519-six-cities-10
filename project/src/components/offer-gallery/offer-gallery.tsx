@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { nanoid } from 'nanoid';
 
 type OfferGalleryProps = {
   images: string[];
@@ -7,13 +7,12 @@ type OfferGalleryProps = {
 const GALLERY_IMAGE_LIMIT = 6;
 
 function OfferGallery({ images }: OfferGalleryProps): JSX.Element {
-  const { id } = useParams();
   return (
     <div className="property__gallery">
       {images.map((imageSrc, i) => {
         if (i < GALLERY_IMAGE_LIMIT) {
           return (
-            <div className="property__image-wrapper" key={imageSrc + id}>
+            <div className="property__image-wrapper" key={nanoid()}>
               <img className="property__image" src={imageSrc} alt="Studio" />
             </div>
           );

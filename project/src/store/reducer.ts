@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../const';
 import { Offer } from '../types/offer';
-import { cityChange, loadOffers, offerListFilling, requireAuthorization, setActiveUser, setDataLoadedStatus } from './action';
+import { cityChange, loadOffers, offerListFilling, requireAuthorization, setActiveUser, setDataLoadedStatus, toggleIsFavoriteCard } from './action';
 
 type InitialState = {
   city: string,
@@ -40,14 +40,14 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
     })
+    .addCase(toggleIsFavoriteCard, (state, action) => {
+      const toggledOffer = state.offers.find((offer) => action.payload.id === offer.id);
+      if (toggledOffer) {
+        toggledOffer.isFavorite = action.payload.newIsFavorite;
+      }
+    })
     .addCase(setActiveUser, (state, action) => {
       state.user = action.payload;
-      //})
-      //.addCase(loadOffer, (state, action) => {
-      //  state.currentOffer = action.payload;
-      //})
-      //.addCase(loadNearbyOffers, (state, action) => {
-      //  state.nearbyOffers = action.payload;
     });
 });
 
