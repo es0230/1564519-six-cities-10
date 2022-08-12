@@ -7,8 +7,7 @@ type PlaceCardProps = {
 };
 
 function PlaceCard({ offer, mouseOverHandler }: PlaceCardProps): JSX.Element {
-  const { price, title, type, images, isFavorite, isPremium } = offer;
-  //еще рейтинг как-то сделать
+  const { price, title, type, images, isFavorite, isPremium, rating } = offer;
   return (
     <article className="cities__card place-card" onMouseOver={mouseOverHandler}>
       {isPremium ?
@@ -37,7 +36,7 @@ function PlaceCard({ offer, mouseOverHandler }: PlaceCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }}></span>
+            <span style={{ width: `${20 * rating}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

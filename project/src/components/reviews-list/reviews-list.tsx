@@ -11,8 +11,7 @@ function ReviewsList({ reviews }: ReviewsListProps): JSX.Element {
         reviews === undefined ?
           <> </> :
           reviews.map((review) => {
-            const { date, comment, id, user: { avatarUrl, name } } = review;
-            //как-то сделать рейтинг
+            const { date, comment, id, user: { avatarUrl, name }, rating } = review;
             return (
               <li className="reviews__item" key={id}>
                 <div className="reviews__user user">
@@ -26,7 +25,7 @@ function ReviewsList({ reviews }: ReviewsListProps): JSX.Element {
                 <div className="reviews__info">
                   <div className="reviews__rating rating">
                     <div className="reviews__stars rating__stars">
-                      <span style={{ width: '80%' }}></span>
+                      <span style={{ width: `${20 * rating}%` }}></span>
                       <span className="visually-hidden">Rating</span>
                     </div>
                   </div>
