@@ -38,7 +38,6 @@ function ReviewsForm({ handleFormSubmit }: ReviewsFormProps): JSX.Element {
     } catch {
       console.log('Запрос не удался');
     }
-    //api.post<Review[]>(`${APIRoute.Comments}/${id}`, newComment).then((commentList) => handleFormSubmit(commentList.data));
   };
 
   return (
