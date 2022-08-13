@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
 import { APIRoute } from '../../const';
@@ -16,13 +15,9 @@ function FavoritesPlaceCard({ offer }: FavoritesPlaceCardProps): JSX.Element {
   const [isFavorite, setIsFavorite] = useState(offer.isFavorite);
 
   const onBookmarkButtonClick = async (id: number) => {
-    try {
-      const { data: updatedOffer } = await api.post<Offer>(`${APIRoute.Favorite}/${id}/${Number(!isFavorite)}`);
-      setIsFavorite(updatedOffer.isFavorite);
-      dispatch(toggleIsFavoriteCard({ id: id, newIsFavorite: updatedOffer.isFavorite }));
-    } catch {
-      console.log('Запрос не удался');
-    }
+    const { data: updatedOffer } = await api.post<Offer>(`${APIRoute.Favorite}/${id}/${Number(!isFavorite)}`);
+    setIsFavorite(updatedOffer.isFavorite);
+    dispatch(toggleIsFavoriteCard({ id: id, newIsFavorite: updatedOffer.isFavorite }));
   };
 
   const { isPremium, price, title, type, images, rating, id } = offer;

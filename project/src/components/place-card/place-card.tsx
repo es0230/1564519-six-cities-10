@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { APIRoute } from '../../const';
@@ -17,13 +16,9 @@ function PlaceCard({ offer, mouseOverHandler }: PlaceCardProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   const onBookmarkButtonClick = async (id: number) => {
-    try {
-      const { data: updatedOffer } = await api.post<Offer>(`${APIRoute.Favorite}/${id}/${Number(!isFavorite)}`);
-      setIsFavorite(updatedOffer.isFavorite);
-      dispatch(toggleIsFavoriteCard({ id: id, newIsFavorite: updatedOffer.isFavorite }));
-    } catch {
-      console.log('Запрос не удался');
-    }
+    const { data: updatedOffer } = await api.post<Offer>(`${APIRoute.Favorite}/${id}/${Number(!isFavorite)}`);
+    setIsFavorite(updatedOffer.isFavorite);
+    dispatch(toggleIsFavoriteCard({ id: id, newIsFavorite: updatedOffer.isFavorite }));
   };
 
   const { price, title, type, images, isPremium, rating, id } = offer;

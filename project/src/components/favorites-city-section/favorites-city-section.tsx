@@ -3,11 +3,11 @@ import FavoritesPlaceCard from '../favorites-place-card/favorites-place-card';
 
 type FavoritesCitySectionProps = {
   city: string;
-  offers?: Offer[];
+  offers: Offer[];
 }
 
 function FavoritesCitySection({ city, offers }: FavoritesCitySectionProps): JSX.Element {
-  if (offers?.length === 0) {
+  if (offers.length === 0) {
     return <> </>;
   }
 
@@ -21,7 +21,7 @@ function FavoritesCitySection({ city, offers }: FavoritesCitySectionProps): JSX.
         </div>
       </div>
       <div className="favorites__places">
-        {offers?.map((offer) => offer.isFavorite ?
+        {offers.map((offer) => offer.isFavorite ?
           <FavoritesPlaceCard
             key={offer.id}
             offer={offer}

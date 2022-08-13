@@ -11,11 +11,11 @@ import { useAppSelector } from '../../hooks';
 
 function FavoritePage(): JSX.Element {
   const cities = Object.keys(Cities);
-  const [favoriteOffers, setFavoriteOffers] = useState<Offer[] | undefined>();
+  const [favoriteOffers, setFavoriteOffers] = useState<Offer[]>();
   const offers = useAppSelector((state) => state.offers);
 
   useEffect(() => {
-    api.get<Offer[] | undefined>(APIRoute.Favorite).then((newFavoriteOffers) => setFavoriteOffers(newFavoriteOffers.data));
+    api.get<Offer[]>(APIRoute.Favorite).then((newFavoriteOffers) => setFavoriteOffers(newFavoriteOffers.data));
   }, [offers]);
 
   if (favoriteOffers === undefined) {
@@ -33,7 +33,7 @@ function FavoritePage(): JSX.Element {
             <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
-                {cities.map((city) => <FavoritesCitySection key={city} city={city} offers={favoriteOffers?.filter((offer) => offer.city.name === city)} />)}
+                {cities.map((city) => <FavoritesCitySection key={city} city={city} offers={favoriteOffers.filter((offer) => offer.city.name === city)} />)}
               </ul>
             </section>}
 
