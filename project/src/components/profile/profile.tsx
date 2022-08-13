@@ -2,15 +2,13 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
+import { getFavoriteOffersCount } from '../../store/app-data/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
-
-type ProfileProps = {
-  favoriteCount: number
-}
-
-function Profile({ favoriteCount }: ProfileProps): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const activeUser = useAppSelector((state) => state.user);
+function Profile(): JSX.Element {
+  const favoriteCount = useAppSelector(getFavoriteOffersCount);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const activeUser = useAppSelector((state) => state.USER.userEmail);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 

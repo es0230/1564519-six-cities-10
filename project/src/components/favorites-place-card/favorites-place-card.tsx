@@ -2,9 +2,9 @@ import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
 import { APIRoute } from '../../const';
 import { useAppDispatch } from '../../hooks';
-import { toggleIsFavoriteCard } from '../../store/action';
 import { useState } from 'react';
 import { api } from '../../store';
+import { toggleIsFavoriteCard } from '../../store/app-data/app-data';
 
 type FavoritesPlaceCardProps = {
   offer: Offer;

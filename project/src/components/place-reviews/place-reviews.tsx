@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { Review } from '../../types/review';
 import ReviewsForm from '../reviews-form/reviews-form';
 import ReviewsList from '../reviews-list/reviews-list';
 
 type PlaceReviewsProps = {
-  reviews: Review[] | undefined;
+  reviews: Review[];
 }
 
 function PlaceReviews({ reviews }: PlaceReviewsProps): JSX.Element {
-  const [commentList, setCommentList] = useState<Review[] | undefined>(reviews);
+  const [commentList, setCommentList] = useState<Review[]>(reviews);
   const { id } = useParams();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   useEffect(() => {
     setCommentList(reviews);

@@ -18,8 +18,8 @@ import LoadingScreen from '../../components/loading-screen/loading-screen';
 function RoomPage(): JSX.Element {
   const { id } = useParams();
   const [currentOffer, setCurrentOffer] = useState<Offer>();
-  const [neighbouringOffers, setNeighbouringOffers] = useState<Offer[]>();
-  const [reviewList, setReviewList] = useState<Review[]>();
+  const [neighbouringOffers, setNeighbouringOffers] = useState<Offer[]>([]);
+  const [reviewList, setReviewList] = useState<Review[]>([]);
 
   useEffect(() => {
     api.get<Offer>(`${APIRoute.Offers}/${id}`).then((offer) => setCurrentOffer(offer.data));

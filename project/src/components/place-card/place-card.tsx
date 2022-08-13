@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { APIRoute } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { api } from '../../store';
-import { toggleIsFavoriteCard } from '../../store/action';
+import { toggleIsFavoriteCard } from '../../store/app-data/app-data';
 import { Offer } from '../../types/offer';
 
 type PlaceCardProps = {
