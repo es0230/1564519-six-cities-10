@@ -1,24 +1,13 @@
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
-import { APIRoute } from '../../const';
-import { useAppDispatch } from '../../hooks';
-import { useState } from 'react';
-import { api } from '../../store';
-import { toggleIsFavoriteCard } from '../../store/app-data/app-data';
+import { useFavoriteCard } from '../../hooks/use-favorite-card';
 
 type FavoritesPlaceCardProps = {
   offer: Offer;
 }
 
 function FavoritesPlaceCard({ offer }: FavoritesPlaceCardProps): JSX.Element {
-  const dispatch = useAppDispatch();
-  const [isFavorite, setIsFavorite] = useState(offer.isFavorite);
-
-  const onBookmarkButtonClick = async (id: number) => {
-    const { data: updatedOffer } = await api.post<Offer>(`${APIRoute.Favorite}/${id}/${Number(!isFavorite)}`);
-    setIsFavorite(updatedOffer.isFavorite);
-    dispatch(toggleIsFavoriteCard({ id: id, newIsFavorite: updatedOffer.isFavorite }));
-  };
+  const [, handleFavoriteToggle] = useFavoriteCard(offer);
 
   const { isPremium, price, title, type, images, rating, id } = offer;
   return (
@@ -43,7 +32,7 @@ function FavoritesPlaceCard({ offer }: FavoritesPlaceCardProps): JSX.Element {
           <button
             className="place-card__bookmark-button place-card__bookmark-button--active button"
             type="button"
-            onClick={() => onBookmarkButtonClick(id)}
+            onClick={() => handleFavoriteToggle(id)}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>

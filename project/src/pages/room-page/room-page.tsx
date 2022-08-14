@@ -1,6 +1,5 @@
 import Header from '../../components/header/header';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
-import NotFound from '../../components/not-found/not-found';
 import PropertyHost from '../../components/property-host/property-host';
 import { Offer } from '../../types/offer';
 import PropertyInside from '../../components/property-inside/property-inside';
@@ -14,12 +13,14 @@ import { api } from '../../store';
 import { APIRoute } from '../../const';
 import { Review } from '../../types/review';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
+import { useFavoriteCard } from '../../hooks/use-favorite-card';
 
 function RoomPage(): JSX.Element {
   const { id } = useParams();
   const [currentOffer, setCurrentOffer] = useState<Offer>();
   const [neighbouringOffers, setNeighbouringOffers] = useState<Offer[]>([]);
   const [reviewList, setReviewList] = useState<Review[]>([]);
+  const [isFavorite, handleFavoriteToggle] = useFavoriteCard(currentOffer);
 
   useEffect(() => {
     api.get<Offer>(`${APIRoute.Offers}/${id}`).then((offer) => setCurrentOffer(offer.data));
@@ -31,16 +32,11 @@ function RoomPage(): JSX.Element {
     return <LoadingScreen />;
   }
 
-  if (currentOffer === null) {
-    return <NotFound />;
-  }
-
-  const { price, bedrooms, rating, maxAdults, title, description, type, images, isFavorite, isPremium, host, goods } = currentOffer;
+  const { price, bedrooms, rating, maxAdults, title, description, type, images, isPremium, host, goods } = currentOffer;
 
   return (
     <div className="page">
       <Header />
-
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
@@ -57,7 +53,11 @@ function RoomPage(): JSX.Element {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={`property__bookmark-button button ${isFavorite ? 'property__bookmark-button--active' : ''}`} type="button">
+                <button
+                  className={`property__bookmark-button button ${isFavorite ? 'property__bookmark-button--active' : ''}`} //'property__bookmark-button button property__bookmark-button--active'
+                  type="button"
+                  onClick={() => handleFavoriteToggle(currentOffer.id)}
+                >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
