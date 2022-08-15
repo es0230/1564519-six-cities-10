@@ -99,7 +99,7 @@ function ReviewsForm({ handleFormSubmit }: ReviewsFormProps): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="button"
-          disabled={newComment.comment.length <= 50 || newComment.rating === 0}
+          disabled={newComment.comment.length <= 50 || newComment.rating === 0 || newComment.comment.length > 300}
           onClick={onFormSubmit}
         >
           Submit
