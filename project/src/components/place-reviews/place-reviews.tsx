@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { Review } from '../../types/review';
+import { sortReviewsByDate } from '../../util';
 import ReviewsForm from '../reviews-form/reviews-form';
 import ReviewsList from '../reviews-list/reviews-list';
 
@@ -11,12 +12,12 @@ type PlaceReviewsProps = {
 }
 
 function PlaceReviews({ reviews }: PlaceReviewsProps): JSX.Element {
-  const [commentList, setCommentList] = useState<Review[]>(reviews);
+  const [commentList, setCommentList] = useState<Review[]>(sortReviewsByDate(reviews));
   const { id } = useParams();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   useEffect(() => {
-    setCommentList(reviews.sort((a, b) => Date.parse(b.date) - Date.parse(a.date)));
+    setCommentList(reviews);
   }, [reviews, id]);
 
 

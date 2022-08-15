@@ -4,6 +4,7 @@ import { APIRoute } from '../../const';
 import { api } from '../../store';
 import { Comment } from '../../types/comment';
 import { Review } from '../../types/review';
+import { sortReviewsByDate } from '../../util';
 
 const initialState: Comment = {
   comment: '',
@@ -22,7 +23,7 @@ function ReviewsForm({ handleFormSubmit }: ReviewsFormProps): JSX.Element {
   useEffect(() => {
     if (sendReview) {
       api.post<Review[]>(`${APIRoute.Comments}/${id}`, newComment)
-        .then((newReviewList) => handleFormSubmit(newReviewList.data));
+        .then((newReviewList) => handleFormSubmit(sortReviewsByDate(newReviewList.data)));
       setNewComment(initialState);
       setSendReview(false);
     }
