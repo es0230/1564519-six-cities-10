@@ -16,7 +16,7 @@ function PlaceReviews({ reviews }: PlaceReviewsProps): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   useEffect(() => {
-    setCommentList(reviews);
+    setCommentList(reviews.sort((a, b) => Date.parse(b.date) - Date.parse(a.date)));
   }, [reviews, id]);
 
 
