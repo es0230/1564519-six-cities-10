@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { APIRoute } from '../../const';
 import { api } from '../../store';
@@ -17,6 +17,16 @@ type ReviewsFormProps = {
 function ReviewsForm({ handleFormSubmit }: ReviewsFormProps): JSX.Element {
   const { id } = useParams();
   const [newComment, setNewComment] = useState<Comment>(initialState);
+  const [sendReview, setSendReview] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (sendReview) {
+      api.post<Review[]>(`${APIRoute.Comments}/${id}`, newComment)
+        .then((newReviewList) => handleFormSubmit(newReviewList.data));
+      setNewComment(initialState);
+      setSendReview(false);
+    }
+  }, [sendReview]);
 
   const ratingClickHandle = (evt: React.MouseEvent<HTMLInputElement>) => {
     const { value } = evt.currentTarget;
@@ -30,9 +40,7 @@ function ReviewsForm({ handleFormSubmit }: ReviewsFormProps): JSX.Element {
 
   const onFormSubmit = async (evt: React.FormEvent<HTMLButtonElement>) => {
     evt.preventDefault();
-    const { data: commentList } = await api.post<Review[]>(`${APIRoute.Comments}/${id}`, newComment);
-    handleFormSubmit(commentList);
-    setNewComment(initialState);
+    setSendReview(true);
   };
 
   return (

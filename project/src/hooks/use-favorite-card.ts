@@ -9,8 +9,8 @@ import { Offer } from '../types/offer';
 type ResultFavoriteCard = [boolean | undefined, (id: number) => void];
 
 export const useFavoriteCard = (offer: Offer | undefined): ResultFavoriteCard => {
-  const [isCardFavorite, setCardFavorite] = useState(offer?.isFavorite);
-  const [sendRequest, setSendRequest] = useState(false);
+  const [isCardFavorite, setCardFavorite] = useState<boolean | undefined>(offer?.isFavorite);
+  const [sendRequest, setSendRequest] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
