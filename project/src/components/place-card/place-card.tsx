@@ -1,10 +1,5 @@
-/* eslint-disable no-console */
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { APIRoute } from '../../const';
-import { useAppDispatch } from '../../hooks';
-import { api } from '../../store';
-import { toggleIsFavoriteCard } from '../../store/action';
+import { useFavoriteCard } from '../../hooks/use-favorite-card';
 import { Offer } from '../../types/offer';
 
 type PlaceCardProps = {
@@ -13,18 +8,7 @@ type PlaceCardProps = {
 };
 
 function PlaceCard({ offer, mouseOverHandler }: PlaceCardProps): JSX.Element {
-  const [isFavorite, setIsFavorite] = useState(offer.isFavorite);
-  const dispatch = useAppDispatch();
-
-  const onBookmarkButtonClick = async (id: number) => {
-    try {
-      const { data: updatedOffer } = await api.post<Offer>(`${APIRoute.Favorite}/${id}/${Number(!isFavorite)}`);
-      setIsFavorite(updatedOffer.isFavorite);
-      dispatch(toggleIsFavoriteCard({ id: id, newIsFavorite: updatedOffer.isFavorite }));
-    } catch {
-      console.log('Запрос не удался');
-    }
-  };
+  const [isFavorite, handleFavoriteToggle] = useFavoriteCard(offer);
 
   const { price, title, type, images, isPremium, rating, id } = offer;
   return (
@@ -49,7 +33,7 @@ function PlaceCard({ offer, mouseOverHandler }: PlaceCardProps): JSX.Element {
           <button
             className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active' : ''}`}
             type="button"
-            onClick={() => onBookmarkButtonClick(id)}
+            onClick={() => handleFavoriteToggle(id)}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>

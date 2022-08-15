@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { APIRoute } from '../../const';
@@ -12,7 +11,7 @@ const initialState: Comment = {
 };
 
 type ReviewsFormProps = {
-  handleFormSubmit: React.Dispatch<React.SetStateAction<Review[] | undefined>>
+  handleFormSubmit: React.Dispatch<React.SetStateAction<Review[]>>
 }
 
 function ReviewsForm({ handleFormSubmit }: ReviewsFormProps): JSX.Element {
@@ -31,13 +30,9 @@ function ReviewsForm({ handleFormSubmit }: ReviewsFormProps): JSX.Element {
 
   const onFormSubmit = async (evt: React.FormEvent<HTMLButtonElement>) => {
     evt.preventDefault();
-    try {
-      const { data: commentList } = await api.post<Review[]>(`${APIRoute.Comments}/${id}`, newComment);
-      handleFormSubmit(commentList);
-      setNewComment(initialState);
-    } catch {
-      console.log('Запрос не удался');
-    }
+    const { data: commentList } = await api.post<Review[]>(`${APIRoute.Comments}/${id}`, newComment);
+    handleFormSubmit(commentList);
+    setNewComment(initialState);
   };
 
   return (

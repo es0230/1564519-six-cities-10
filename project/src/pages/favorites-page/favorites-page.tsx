@@ -8,14 +8,15 @@ import { api } from '../../store';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
 import FavortiesEmpty from '../../components/favorites-empty/favorites-empty';
 import { useAppSelector } from '../../hooks';
+import { getOffers } from '../../store/app-data/selectors';
 
 function FavoritePage(): JSX.Element {
   const cities = Object.keys(Cities);
-  const [favoriteOffers, setFavoriteOffers] = useState<Offer[] | undefined>();
-  const offers = useAppSelector((state) => state.offers);
+  const [favoriteOffers, setFavoriteOffers] = useState<Offer[]>();
+  const offers = useAppSelector(getOffers);
 
   useEffect(() => {
-    api.get<Offer[] | undefined>(APIRoute.Favorite).then((newFavoriteOffers) => setFavoriteOffers(newFavoriteOffers.data));
+    api.get<Offer[]>(APIRoute.Favorite).then((newFavoriteOffers) => setFavoriteOffers(newFavoriteOffers.data));
   }, [offers]);
 
   if (favoriteOffers === undefined) {
@@ -33,7 +34,7 @@ function FavoritePage(): JSX.Element {
             <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
-                {cities.map((city) => <FavoritesCitySection key={city} city={city} offers={favoriteOffers?.filter((offer) => offer.city.name === city)} />)}
+                {cities.map((city) => <FavoritesCitySection key={city} city={city} offers={favoriteOffers.filter((offer) => offer.city.name === city)} />)}
               </ul>
             </section>}
 

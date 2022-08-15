@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
-import { cityChange } from '../../store/action';
+import { cityChange } from '../../store/app-data/app-data';
 
 type MainPageTabProps = {
   city: string;

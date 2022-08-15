@@ -1,10 +1,11 @@
 import { useAppSelector } from '../../hooks';
 import MainPageTab from '../main-page-tab/main-page-tab';
 import { Cities } from '../../const';
+import { getCurrentCity } from '../../store/app-data/selectors';
 
 
 function MainPageTabs(): JSX.Element {
-  const currentCity = useAppSelector((state) => state.city);
+  const currentCity = useAppSelector(getCurrentCity);
   const cities = Object.keys(Cities);
 
   return (

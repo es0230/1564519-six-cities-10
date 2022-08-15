@@ -7,12 +7,14 @@ import { useAppSelector } from '../../hooks';
 import { Cities } from '../../const';
 import SortVariants from '../../components/sort-variants/sort-variants';
 import { useState } from 'react';
+import { getCurrentCity, getOffers } from '../../store/app-data/selectors';
+//import Main from '../../components/main/main';
 
 function MainPage(): JSX.Element {
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
 
-  const currentCity = useAppSelector((state) => state.city);
-  const localOffers = useAppSelector((state) => state.offers).filter((offer) => offer.city.name === currentCity);
+  const currentCity = useAppSelector(getCurrentCity);
+  const localOffers = useAppSelector(getOffers).filter((offer) => offer.city.name === currentCity);
 
   const onCardHover = (offer: Offer) => {
     setActiveCard(offer);
@@ -21,7 +23,7 @@ function MainPage(): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Header />
-
+      {/*<Main />*/}
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <MainPageTabs />

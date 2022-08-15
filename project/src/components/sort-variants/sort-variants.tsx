@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { offerListFilling } from '../../store/action';
+import { offerListFilling } from '../../store/app-data/app-data';
+import { getOffers } from '../../store/app-data/selectors';
 import { Offer } from '../../types/offer';
 import SortVariant from '../sort-variant/sort-variant';
 
@@ -16,7 +17,7 @@ function SortVariants(): JSX.Element {
   const [open, setOpen] = useState(false);
   const [sortType, setSortType] = useState(sortTypes.default);
   const dispatch = useAppDispatch();
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector(getOffers);
 
   const handleSortTypeClick = (type: string) => {
     setOpen(!open);
