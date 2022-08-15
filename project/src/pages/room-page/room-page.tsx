@@ -7,7 +7,7 @@ import PlaceReviews from '../../components/place-reviews/place-reviews';
 import Map from '../../components/map/map';
 import NeighbouringOffers from '../../components/neighbouring-offers/neighbouring-offers';
 import { getOfferCoordinates } from '../../util';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { api } from '../../store';
 import { APIRoute } from '../../const';
@@ -21,9 +21,12 @@ function RoomPage(): JSX.Element {
   const [neighbouringOffers, setNeighbouringOffers] = useState<Offer[]>([]);
   const [reviewList, setReviewList] = useState<Review[]>([]);
   const [isFavorite, handleFavoriteToggle] = useFavoriteCard(currentOffer);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    api.get<Offer>(`${APIRoute.Offers}/${id}`).then((offer) => setCurrentOffer(offer.data));
+    api.get<Offer>(`${APIRoute.Offers}/${id}`)
+      .then((offer) => setCurrentOffer(offer.data))
+      .catch(() => navigate('*'));
     api.get<Offer[]>(`${APIRoute.Offers}/${id}/nearby`).then((offers) => setNeighbouringOffers(offers.data));
     api.get<Review[]>(`${APIRoute.Comments}/${id}`).then((comments) => setReviewList(comments.data));
   }, [id]);
