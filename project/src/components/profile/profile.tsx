@@ -1,20 +1,29 @@
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { APIRoute, AppRoute, AuthorizationStatus } from '../../const';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { logoutAction } from '../../store/api-actions';
+import { checkAuthAction, logoutAction } from '../../store/api-actions';
 import { getFavoriteOffersCount } from '../../store/app-data/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { useEffect, useState } from 'react';
+import { api } from '../../store';
+import { UserData } from '../../types/user-data';
 
 function Profile(): JSX.Element {
   const favoriteCount = useAppSelector(getFavoriteOffersCount);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const activeUser = useAppSelector((state) => state.USER.userEmail);
+  const [activeUser, setActiveUser] = useState('');
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    api.get<UserData>(APIRoute.Login)
+      .then((user) => setActiveUser(user.data.email));
+  });
 
   const onClick = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
       dispatch(logoutAction());
+      dispatch(checkAuthAction());
     }
     navigate(AppRoute.Login);
   };

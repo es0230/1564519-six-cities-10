@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { APIRoute } from '../../const';
 import { api } from '../../store';
 import { Comment } from '../../types/comment';
 import { Review } from '../../types/review';
+import { sortReviewsByDate } from '../../util';
 
 const initialState: Comment = {
   comment: '',
@@ -17,6 +18,16 @@ type ReviewsFormProps = {
 function ReviewsForm({ handleFormSubmit }: ReviewsFormProps): JSX.Element {
   const { id } = useParams();
   const [newComment, setNewComment] = useState<Comment>(initialState);
+  const [sendReview, setSendReview] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (sendReview) {
+      api.post<Review[]>(`${APIRoute.Comments}/${id}`, newComment)
+        .then((newReviewList) => handleFormSubmit(sortReviewsByDate(newReviewList.data)));
+      setNewComment(initialState);
+      setSendReview(false);
+    }
+  }, [sendReview]);
 
   const ratingClickHandle = (evt: React.MouseEvent<HTMLInputElement>) => {
     const { value } = evt.currentTarget;
@@ -30,9 +41,7 @@ function ReviewsForm({ handleFormSubmit }: ReviewsFormProps): JSX.Element {
 
   const onFormSubmit = async (evt: React.FormEvent<HTMLButtonElement>) => {
     evt.preventDefault();
-    const { data: commentList } = await api.post<Review[]>(`${APIRoute.Comments}/${id}`, newComment);
-    handleFormSubmit(commentList);
-    setNewComment(initialState);
+    setSendReview(true);
   };
 
   return (
@@ -90,7 +99,7 @@ function ReviewsForm({ handleFormSubmit }: ReviewsFormProps): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="button"
-          disabled={newComment.comment.length <= 50 || newComment.rating === 0}
+          disabled={newComment.comment.length <= 50 || newComment.rating === 0 || newComment.comment.length > 300}
           onClick={onFormSubmit}
         >
           Submit
