@@ -10,7 +10,7 @@ import FavortiesEmpty from '../../components/favorites-empty/favorites-empty';
 import { useAppSelector } from '../../hooks';
 import { getOffers } from '../../store/app-data/selectors';
 
-function FavoritePage(): JSX.Element {
+function FavoritesPage(): JSX.Element {
   const cities = Object.keys(Cities);
   const [favoriteOffers, setFavoriteOffers] = useState<Offer[]>();
   const offers = useAppSelector(getOffers);
@@ -49,5 +49,5 @@ function FavoritePage(): JSX.Element {
   );
 }
 
-export default FavoritePage;
+export default FavoritesPage;
 

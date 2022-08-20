@@ -6,7 +6,7 @@ import PropertyInside from '../../components/property-inside/property-inside';
 import PlaceReviews from '../../components/place-reviews/place-reviews';
 import Map from '../../components/map/map';
 import NeighbouringOffers from '../../components/neighbouring-offers/neighbouring-offers';
-import { getOfferCoordinates } from '../../util';
+import { getOfferCoordinates, getWidthFromRating } from '../../util';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { api } from '../../store';
@@ -57,7 +57,7 @@ function RoomPage(): JSX.Element {
                   {title}
                 </h1>
                 <button
-                  className={`property__bookmark-button button ${isFavorite ? 'property__bookmark-button--active' : ''}`} //'property__bookmark-button button property__bookmark-button--active'
+                  className={`property__bookmark-button button ${isFavorite ? 'property__bookmark-button--active' : ''}`}
                   type="button"
                   onClick={() => handleFavoriteToggle(currentOffer.id)}
                 >
@@ -69,7 +69,7 @@ function RoomPage(): JSX.Element {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{ width: `${20 * rating}%` }}></span>
+                  <span style={{ width: `${getWidthFromRating(rating)}%` }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{rating}</span>

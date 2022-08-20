@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useFavoriteCard } from '../../hooks/use-favorite-card';
 import { Offer } from '../../types/offer';
+import { getWidthFromRating } from '../../util';
 
 type PlaceCardProps = {
   offer: Offer;
@@ -43,7 +44,7 @@ function PlaceCard({ offer, mouseOverHandler }: PlaceCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${20 * rating}%` }}></span>
+            <span style={{ width: `${getWidthFromRating(rating)}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

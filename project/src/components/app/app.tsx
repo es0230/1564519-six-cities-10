@@ -1,6 +1,6 @@
 import MainPage from '../../pages/main-page/main-page';
 import LoginPage from '../../pages/login-page/login-page';
-import FavoritePage from '../../pages/favorites-page/favorites-page';
+import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import RoomPage from '../../pages/room-page/room-page';
 import Page404 from '../../pages/page-404/page-404';
 import PrivateRoute from '../private-route/private-route';
@@ -28,7 +28,7 @@ function App(): JSX.Element {
         <Route path={AppRoute.Login} element={<LoginPage />} />
         <Route path={AppRoute.Favorites} element={
           <PrivateRoute authorizationStatus={authorizationStatus}>
-            {<FavoritePage />}
+            {<FavoritesPage />}
           </PrivateRoute>
         }
         />
