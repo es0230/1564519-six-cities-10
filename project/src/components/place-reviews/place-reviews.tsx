@@ -23,7 +23,7 @@ function PlaceReviews({ reviews }: PlaceReviewsProps): JSX.Element {
 
   return (
     <section className="property__reviews reviews">
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{commentList?.length}</span></h2>
+      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{commentList.slice(0, 10).length}</span></h2>
       <ReviewsList reviews={commentList.slice(0, 10)} />
       {authorizationStatus === 'AUTH' ?
         <ReviewsForm handleFormSubmit={setCommentList} /> :
