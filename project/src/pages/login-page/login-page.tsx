@@ -20,7 +20,7 @@ function LoginPage(): JSX.Element {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (loginRef.current !== null && passwordRef.current !== null) {
+    if (loginRef.current !== null && passwordRef.current !== null && (/^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{2,}$/).test(passwordRef.current.value)) {
       onSubmit({
         login: loginRef.current.value,
         password: passwordRef.current.value,
