@@ -34,6 +34,9 @@ export const appData = createSlice({
       .addCase(fetchOffersAction.pending, (state) => {
         state.isDataLoaded = true;
       })
+      .addCase(fetchOffersAction.rejected, (state) => {
+        state.isDataLoaded = false;
+      })
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
         state.offers = action.payload;
         state.isDataLoaded = false;

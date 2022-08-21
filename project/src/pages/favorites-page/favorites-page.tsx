@@ -1,6 +1,6 @@
 import Header from '../../components/header/header';
 import FavoritesCitySection from '../../components/favorites-city-section/favorites-city-section';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { APIRoute, Cities } from '../../const';
 import { useEffect, useState } from 'react';
 import { Offer } from '../../types/offer';
@@ -14,9 +14,12 @@ function FavoritesPage(): JSX.Element {
   const cities = Object.keys(Cities);
   const [favoriteOffers, setFavoriteOffers] = useState<Offer[]>();
   const offers = useAppSelector(getOffers);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    api.get<Offer[]>(APIRoute.Favorite).then((newFavoriteOffers) => setFavoriteOffers(newFavoriteOffers.data));
+    api.get<Offer[]>(APIRoute.Favorite)
+      .then((newFavoriteOffers) => setFavoriteOffers(newFavoriteOffers.data))
+      .catch(() => navigate('*'));
   }, [offers]);
 
   if (favoriteOffers === undefined) {
