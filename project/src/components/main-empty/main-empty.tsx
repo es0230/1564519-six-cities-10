@@ -12,7 +12,7 @@ function MainEmpty({ currentCity }: MainEmptyProps): JSX.Element {
             <p className="cities__status-description">We could not find any property available at the moment in {currentCity}</p>
           </div>
         </section>
-        <div className="cities__right-section"></div>
+        <div className="cities__right-section" style={{ backgroundImage: 'url(\'../img/no-places.png\')', backgroundRepeat: 'no-repeat', backgroundSize: 'auto 119%' }}></div>
       </div>
     </div>
   );

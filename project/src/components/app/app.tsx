@@ -5,11 +5,13 @@ import RoomPage from '../../pages/room-page/room-page';
 import Page404 from '../../pages/page-404/page-404';
 import PrivateRoute from '../private-route/private-route';
 import { AppRoute } from '../../const';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getLoadedDataStatus } from '../../store/app-data/selectors';
+import browserHistory from '../../browser-history';
+import HistoryRouter from '../history-route/history-route';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
@@ -22,7 +24,7 @@ function App(): JSX.Element {
   }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route path={AppRoute.Main} element={<MainPage />} />
         <Route path={AppRoute.Login} element={<LoginPage />} />
@@ -35,7 +37,7 @@ function App(): JSX.Element {
         <Route path={AppRoute.Offer} element={<RoomPage />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 
